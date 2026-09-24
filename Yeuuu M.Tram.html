@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#180714">
+<title>Trung Thu Vui Vẻ Ạ ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff6f9d; --pink2:#ff9fc0; --rose:#ff477e; --love:#ff315f;
+  --cream:#fff0f5; --violet:#6d3c75; --night:#120817;
+  --ease:cubic-bezier(.2,.8,.25,1);
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+body{
+  font-family:Mali,Georgia,serif;background:#120817;color:#fff;
+  -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit}
+.intro{
+  position:fixed;inset:0;overflow:hidden;background:
+    radial-gradient(circle at 50% 45%,rgba(255,70,120,.14),transparent 30%),
+    radial-gradient(circle at 18% 15%,rgba(194,80,255,.16),transparent 32%),
+    radial-gradient(circle at 86% 80%,rgba(255,90,160,.13),transparent 35%),
+    #120817;
+  user-select:none;touch-action:none;
+}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:auto}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,transparent 42%,rgba(12,3,14,.58) 100%);z-index:3}
+.top-title{
+  position:absolute;z-index:8;left:50%;top:clamp(24px,5vh,58px);transform:translateX(-50%);
+  text-align:center;pointer-events:none;width:90%;
+  color:#fff0f5;font-weight:700;font-size:clamp(22px,3vw,40px);
+  letter-spacing:.02em;text-shadow:0 0 12px rgba(255,100,155,.65),0 0 30px rgba(255,50,120,.3);
+}
+.top-title small{
+  display:block;margin-top:8px;font-size:clamp(11px,1.3vw,16px);font-weight:600;
+  color:#ffc7d9;opacity:.9;letter-spacing:.08em;
+}
+.hint{
+ position:absolute;left:50%;bottom:clamp(22px,5vh,52px);transform:translateX(-50%);z-index:10;
+ color:#ffe7f0;font-size:clamp(13px,1.4vw,17px);text-align:center;
+ text-shadow:0 0 12px rgba(255,70,130,.9);transition:opacity .35s ease;
+ background:rgba(255,70,130,.08);border:1px solid rgba(255,170,200,.18);
+ padding:9px 16px;border-radius:999px;backdrop-filter:blur(8px);white-space:nowrap;
+}
+.hint.hidden{opacity:0;pointer-events:none}
+/* THU NHỎ MẶT TRĂNG LẠI MỘT CHÚT */
+.moon-wrap{
+  position:absolute;top:calc(22px + env(safe-area-inset-top,0px));
+  right:calc(22px + env(safe-area-inset-right,0px));
+  width:min(180px,28vw,28vh);aspect-ratio:1;cursor:pointer;z-index:28;
+  -webkit-user-select:none;touch-action:none;pointer-events:auto;
+}
+.moon{position:absolute;inset:0;border-radius:50%;overflow:hidden;border:3px solid rgba(255,180,205,.65);box-shadow:0 0 0 5px rgba(255,90,145,.08),0 0 35px rgba(255,70,130,.55)}
+.moon img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.moon-wrap:hover .moon{transform:scale(1.06)}
+.moon-glow{position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(circle,rgba(255,90,150,.38),rgba(255,70,130,.13) 38%,transparent 68%);animation:pulse 3s ease-in-out infinite}
+.moon-wrap.holding .moon{transform:scale(.94);box-shadow:0 0 0 7px rgba(255,90,145,.18),0 0 55px rgba(255,50,120,.9)}
+.moon-wrap.holding .moon-glow{animation:none;transform:scale(1.25)}
+.music-toggle-fixed{
+ position:fixed;top:calc(20px + env(safe-area-inset-top,0px));left:calc(20px + env(safe-area-inset-left,0px));
+ z-index:100;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,180,205,.25);
+ background:rgba(255,80,135,.09);color:#ffd9e5;font-size:18px;cursor:pointer;
+ display:grid;place-items:center;box-shadow:0 0 22px rgba(255,60,130,.2);backdrop-filter:blur(8px)
+}
+/* THU NHỎ KHUNG ẢNH TRÁI/PHẢI LẠI MỘT CHÚT */
+.floating-photo{
+ position:absolute;bottom:calc(8% + env(safe-area-inset-bottom,0px));z-index:12;width:min(150px,25vw);
+ aspect-ratio:4/5;padding:5px;border-radius:14px;pointer-events:none;opacity:.7;
+ border:1px solid rgba(255,190,215,.25);background:rgba(255,255,255,.06);
+ box-shadow:0 15px 40px rgba(0,0,0,.3),0 0 25px rgba(255,70,130,.18);
+ will-change:transform;
+}
+.floating-photo.left{left:5vw;transform:rotate(-5deg);animation:floatLeft 4s ease-in-out infinite alternate}
+.floating-photo.right{right:5vw;transform:rotate(5deg);animation:floatRight 4.5s ease-in-out infinite alternate}
+.floating-photo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+@keyframes floatLeft{to{transform:translateY(-16px) rotate(3deg)}}
+@keyframes floatRight{to{transform:translateY(-18px) rotate(-3deg)}}
+@keyframes pulse{50%{transform:scale(1.08);opacity:.72}}
+.letter-modal{position:fixed;inset:0;z-index:30;display:none;place-items:center;padding:20px;overflow-y:auto}
+.letter-modal.open{display:grid}
+.modal-backdrop{position:absolute;inset:0;background:rgba(13,3,16,.72);backdrop-filter:blur(12px)}
+.letter-stage{position:relative;width:min(590px,92vw);margin:auto;display:flex;flex-direction:column}
+.letter-card{
+ position:relative;width:100%;max-height:82vh;border-radius:30px;
+ background:linear-gradient(155deg,#fff7fb,#ffe2ec 70%,#ffd3e2);
+ box-shadow:0 30px 100px rgba(0,0,0,.65),0 0 45px rgba(255,60,125,.18),inset 0 0 0 1px rgba(255,255,255,.8);
+ padding:clamp(24px,4vw,34px) clamp(20px,4vw,38px) 130px;
+ animation:cardIn .65s var(--ease) both;display:flex;flex-direction:column;
+}
+.close{position:absolute;z-index:30;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:#b83e68;font-size:22px;line-height:1;cursor:pointer;box-shadow:0 4px 15px rgba(100,20,50,.18)}
+.letter-content{flex:1 1 auto;margin-bottom:12px;overflow-y:auto;max-height:54vh;padding-right:8px}
+.letter-content p{margin:0;color:#54223a;font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere;font-size:clamp(15px,1.8vw,19px);line-height:1.7}
+.cursor{display:inline-block;width:2px;height:1.1em;background:#ff477e;margin-left:4px;vertical-align:-.15em;animation:blink .72s step-end infinite}
+/* GIỮ NGUYÊN KÍCH THƯỚC ẢNH TRONG THIỆP NHƯ BẠN ĐÃ CHỐT */
+.letter-rabbit{position:absolute;right:16px;bottom:10px;width:150px;height:150px;object-fit:contain;pointer-events:none;animation:bob 4s ease-in-out infinite}
+.heart{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:4;width:52px;height:52px;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.heart svg{width:40px;height:40px;filter:drop-shadow(0 0 10px rgba(255,50,100,.75));animation:heart 1.7s ease-in-out infinite}
+.heart:hover svg{transform:scale(1.15)}
+.heart-particle{position:fixed;z-index:40;pointer-events:none;font-size:18px;color:#ff4f88;will-change:transform,opacity;text-shadow:0 0 10px #ff6f9d;contain:strict}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes blink{50%{opacity:0}}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes heart{50%{transform:scale(1.14)}}
+/* ĐIỀU CHỈNH KÍCH THƯỚC TRÊN ĐIỆN THOẠI */
+@media(max-width:520px){
+ .moon-wrap{top:calc(16px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:min(130px,32vw,20vh)}
+ .floating-photo{width:min(110px,26vw)}.floating-photo.left{left:3vw}.floating-photo.right{right:3vw}
+ .hint{bottom:calc(3% + env(safe-area-inset-bottom,0px));font-size:12px}
+ .top-title{top:72px}.top-title small{font-size:10px}
+ .letter-card{padding:22px 16px 110px}.letter-rabbit{width:100px;height:100px;right:8px;bottom:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .moon-glow,.floating-photo,.heart svg,.letter-rabbit{animation:none!important}
+}
+</style>
+</head>
+<body>
+<main id="intro" class="intro" aria-label="Thiệp Trung Thu">
+  <button class="music-toggle-fixed" id="globalMusicBtn" aria-label="Bật/Tắt nhạc">♪</button>
+  <canvas id="scene"></canvas>
+  <div class="vignette"></div>
+  <div class="floating-photo left"><img id="swingImgLeft" src="" alt=""></div>
+  <div class="floating-photo right"><img id="swingImgRight" src="" alt=""></div>
+  <div class="moon-wrap" id="moonHit" tabindex="0" role="button" aria-label="Giữ để mở thiệp">
+    <div class="moon-glow"></div><div class="moon"><img id="moonAvatar" src="" alt="Ảnh"></div>
+  </div>
+  <div class="hint">❤️ Giữ vào màn hình để mở thiệp ❤️</div>
+</main>
+<section class="letter-modal" id="letterModal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="letter-stage">
+    <button class="close" id="closeBtn" aria-label="Đóng">×</button>
+    <div class="letter-card" id="letterCard" role="dialog" aria-modal="true" aria-label="Thư gửi bạn">
+      <div class="letter-content"><p id="letterText"></p><span class="cursor"></span></div>
+      <img class="letter-rabbit" src="anh5.jpg" alt="">
+      <button class="heart" id="heartBtn" aria-label="Gửi yêu thương">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.5-10-9C.3 8.7 1.6 4.8 5.2 3.9c2-.5 4 .2 5.2 1.9 1.2-1.7 3.2-2.4 5.2-1.9 3.6.9 4.9 4.8 3.2 8.1-2.8 4.5-10 9-10 9Z" fill="url(#hg)"/><defs><linearGradient id="hg" x1="0" y1="0" x2="24" y2="24"><stop offset="0" stop-color="#ff9fba"/><stop offset="1" stop-color="#ff315f"/></linearGradient></defs></svg>
+      </button>
+    </div>
+  </div>
+</section>
+<script>
+(() => {
+"use strict";
+const CONFIG={
+  avatarUrl:"anh1.jpg",           // Ảnh chính mặt trăng
+  leftSwingImage:"anh2.jpg",      // Ảnh bên trái
+  rightSwingImage:"anh3.jpg",     // Ảnh bên phải
+  lanternImages:[],               // Đã xóa ảnh đèn bay để nền sạch đẹp như ban đầu
+  flyingTexts:[
+    "Yeuuu M.Trâm ❤️","Trung Thu Vui Vẻ Ạ 🌕","M có nhớ t khum ❤️",
+    "Làm Đọi Nác Chè Xanh Hè 🌙","Yeuuu M.Trâm ❤️","Đi nhởi khum 🏮",
+    "Cười đi cho t còn cười 😄","Học đi t đợi m đá 💕",
+    "Yeuuu M.Trâm ❤️","Trung Thu Vui Vẻ Ạ 🌕","M có nhớ t khum ❤️",
+    "Cười đi cho t còn cười 😄","Học đi t đợi m đá 💕"
+  ],
+  letter:`Gửi M.Trâm,\n\nTrung thu năm nay tuy vẫn không có ai bên cạnh Cũng buồn lắm chứ. Nhưng anh đã có thêm một người bạn đời.\nMột người đã mang lại cho anh cảm giác an toàn, hay cười và biết trân trọng. \Anh cũng không biết bọn mình đi được đến đâu . Nhưng mà trước mắt được ngày hay ngày đó vậy hí hí 🥰 .\nAnh chúc M.Trâm Trung Thu vui vẻ, hạnh phúc và xinhhhh đẹpppp. Mi ơi mi tau yêu mi bây h mi tính răng mồ 😝. Yeuuu Gaiiiii Hi Hí - Ha Há ❤️. Mãi bên nhau bạn nhé, và phí là 1 câu nói đó đó hè.`
+};
+/* ================= ÂM THANH ================= */
+const bgMusic=new Audio("nhacne.mp3"); bgMusic.loop=true; bgMusic.preload="auto";
+const musicBtn=document.getElementById("globalMusicBtn");
+function updateMusicIcon(){if(musicBtn) musicBtn.textContent=bgMusic.paused?"♪":"♫";}
+musicBtn?.addEventListener("click",e=>{
+  e.stopPropagation();
+  if(bgMusic.paused) bgMusic.play().then(updateMusicIcon).catch(()=>{});
+  else{bgMusic.pause();updateMusicIcon();}
+});
+function startAudio(){
+  bgMusic.play().then(()=>{
+    updateMusicIcon();
+    ["click","touchstart","pointerdown"].forEach(x=>window.removeEventListener(x,startAudio));
+  }).catch(()=>{});
+}
+startAudio();
+["click","touchstart","pointerdown"].forEach(x=>window.addEventListener(x,startAudio,{passive:true}));
+/* ================= DOM ================= */
+document.getElementById("moonAvatar").src = CONFIG.avatarUrl;
+document.getElementById("swingImgLeft").src = CONFIG.leftSwingImage;
+document.getElementById("swingImgRight").src = CONFIG.rightSwingImage;
+const canvas=document.getElementById("scene");
+const ctx=canvas.getContext("2d",{alpha:false,desynchronized:true});
+const moon=document.getElementById("moonHit");
+const modal=document.getElementById("letterModal");
+const textEl=document.getElementById("letterText");
+const closeBtn=document.getElementById("closeBtn");
+const backdrop=document.getElementById("modalBackdrop");
+const heartBtn=document.getElementById("heartBtn");
+const hint=document.querySelector(".hint");
+const letterBox=document.querySelector(".letter-content");
+let W=0,H=0,dpr=1,isMobile=false;
+let stars=[],lanterns=[],texts=[],hearts=[];
+let sparkles=[], ambientHearts=[];
+let lanternSprites=[],textSprites=[],heartSprite=null;
+let lanes=[];
+let spawnTimer=0;
+let spawnElapsed=0;
+let heartSpawnTimer=0;
+let heartSpawnElapsed=0;
+let MAX_TEXT_COUNT=90;
+let MAX_HEART_COUNT=30;
+let opened=false,holdTimer=0,typingTimer=0;
+let rotX=0,rotY=0,targetX=0,targetY=0;
+let prevRender=0;
+const rand=(a,b)=>a+Math.random()*(b-a);
+const TAU=6.28318;
+/* ================= SPRITE ================= */
+function makeCanvas(w,h){const c=document.createElement("canvas");c.width=w;c.height=h;return c;}
+function buildHeartSprite(){
+  const S=88, cx=S/2, cy=S/2, size=S*0.6;
+  const c=makeCanvas(S,S), g=c.getContext("2d");
+  g.shadowBlur=22; g.shadowColor="rgba(255,60,120,.85)";
+  g.fillStyle="#ff5b91";
+  g.beginPath();
+  g.moveTo(cx, cy+size*0.34);
+  g.bezierCurveTo(cx-size*0.75, cy-size*0.10, cx-size*0.52, cy-size*0.68, cx, cy-size*0.35);
+  g.bezierCurveTo(cx+size*0.52, cy-size*0.68, cx+size*0.75, cy-size*0.10, cx, cy+size*0.34);
+  g.fill(); g.fill();
+  heartSprite=c;
+}
+function makeLanternSprite(img){
+  const S=128, pad=18;
+  const c=makeCanvas(S,S), g=c.getContext("2d");
+  const rg=g.createRadialGradient(S/2,S/2,0,S/2,S/2,S/2);
+  rg.addColorStop(0,"rgba(255,130,175,.60)");
+  rg.addColorStop(.45,"rgba(255,70,120,.26)");
+  rg.addColorStop(1,"rgba(255,70,120,0)");
+  g.fillStyle=rg; g.fillRect(0,0,S,S);
+  g.drawImage(img,pad,pad,S-pad*2,S-pad*2);
+  return c;
+}
+function buildTextSprites(){
+  const base=30, pad=22;
+  const mctx=makeCanvas(8,8).getContext("2d");
+  textSprites=CONFIG.flyingTexts.map(str=>{
+    mctx.font=`700 ${base}px Mali, Georgia, serif`;
+    const w=Math.max(20,Math.ceil(mctx.measureText(str).width));
+    const c=makeCanvas(w+pad*2, base+pad*2);
+    const g=c.getContext("2d");
+    g.font=`700 ${base}px Mali, Georgia, serif`;
+    g.textAlign="center"; g.textBaseline="middle";
+    g.shadowColor="rgba(255,150,190,.7)";
+    g.shadowBlur=9;
+    g.fillStyle="#fff2f7";
+    g.fillText(str,c.width/2,c.height/2);
+    g.shadowBlur=5;
+    g.fillText(str,c.width/2,c.height/2);
+    return {c,w:c.width,h:c.height};
+  });
+}
+function preload(){
+  buildHeartSprite();
+  buildTextSprites();
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(()=>{ buildTextSprites(); }).catch(()=>{});
+  }
+  lanternSprites=CONFIG.lanternImages.map(()=>null);
+  CONFIG.lanternImages.forEach((u,i)=>{
+    const img=new Image();
+    img.decoding="async";
+    img.onload=()=>{ lanternSprites[i]=makeLanternSprite(img); };
+    img.src=u;
+  });
+}
+/* ================= 3D ================= */
+const _p={x:0,y:0,s:1,z:0};
+function project(x,y,z){
+  const depth=420/(420+z*180);
+  const xx=x-W*0.5, yy=y-H*0.5;
+  const cy=1, sy=0;
+  const cx=1, sx=0;
+  const x1=xx*cy - z*120*sy;
+  const z1=xx*sy + z*120*cy;
+  const y1=yy*cx - z1*sx;
+  const z2=yy*sx + z1*cx;
+  _p.x=W*0.5+x1*depth;
+  _p.y=H*0.5+y1*depth;
+  _p.s=depth;
+  _p.z=z2;
+  return _p;
+}
+/* ================= KHỞI TẠO ================= */
+let bgGrad=null, glowGrad=null;
+function buildGradients(){
+  bgGrad=ctx.createLinearGradient(0,0,W,H);
+  bgGrad.addColorStop(0,"#16071a");
+  bgGrad.addColorStop(.48,"#32102d");
+  bgGrad.addColorStop(1,"#100612");
+  const r=Math.max(W,H)*0.7;
+  glowGrad=ctx.createRadialGradient(W*0.5,H*0.48,0,W*0.5,H*0.48,r);
+  glowGrad.addColorStop(0,"rgba(255,58,120,.18)");
+  glowGrad.addColorStop(.42,"rgba(157,45,130,.08)");
+  glowGrad.addColorStop(1,"rgba(0,0,0,0)");
+}
+function makeStars(){
+  const area=W*H;
+  // TĂNG SỐ LƯỢNG SAO LÊN ĐỂ BACKGROUND THÊM LẤP LÁNH
+  const n=isMobile
+    ? Math.min(300, Math.max(150, Math.floor(area/3500)))
+    : Math.min(600, Math.max(250, Math.floor(area/2000)));
+  stars=new Array(n);
+  for(let i=0;i<n;i++){
+    stars[i]={x:rand(0,W),y:rand(0,H),r:rand(.4,2.0),p:rand(0,TAU),s:rand(.5,1.8),z:rand(.35,1.5)};
+  }
+}
+function makeLanterns(){
+  const n=isMobile?8:14;
+  lanterns=new Array(n);
+  for(let i=0;i<n;i++){
+    lanterns[i]={
+      x:rand(-.05,1.05)*W, y:rand(.1,1.1)*H, z:rand(.55,1.45),
+      size:rand(28,52), speed:rand(12,28), drift:rand(10,35),
+      phase:rand(0,TAU), imgIdx:(Math.random()*CONFIG.lanternImages.length)|0
+    };
+  }
+}
+function buildLanes(){
+  const cols = isMobile ? 6 : 10;
+  const colW = W / cols;
+  lanes = new Array(cols);
+  for(let c = 0; c < cols; c++){
+    lanes[c] = {
+      x: (c + 0.5) * colW,
+      halfRange: colW * 0.38
+    };
+  }
+}
+function spawnOneText(aboveOffset){
+  if(!lanes.length) return;
+  const lane = lanes[(Math.random() * lanes.length) | 0];
+  texts.push({
+    x: lane.x + rand(-lane.halfRange, lane.halfRange),
+    y: aboveOffset !== undefined ? aboveOffset : (-60 - rand(0, H * 1.2)),
+    idx: (Math.random() * CONFIG.flyingTexts.length) | 0,
+    speed: rand(50, 120),
+    p: rand(0, TAU),
+    scale: rand(0.55, 0.9),
+    alpha: rand(0.75, 1.0)
+  });
+}
+function initTexts(){
+  buildLanes();
+  texts = [];
+  spawnTimer = 0;
+  spawnElapsed = 0;
+  MAX_TEXT_COUNT = isMobile ? 45 : 90;
+  const initial = isMobile ? 22 : 45;
+  for(let i = 0; i < initial; i++){
+    spawnOneText(rand(-H * 1.3, H));
+  }
+}
+/* ================= TRÁI TIM BAY LƠ LỬNG ================= */
+function spawnAmbientHeart(aboveOffset){
+  ambientHearts.push({
+    x: rand(0, W),
+    y: aboveOffset !== undefined ? aboveOffset : H + rand(20, 150),
+    speed: rand(20, 60),
+    size: rand(12, 28),
+    alpha: rand(0.3, 0.7),
+    drift: rand(15, 40),
+    p: rand(0, TAU)
+  });
+}
+function initAmbientHearts(){
+  ambientHearts = [];
+  heartSpawnTimer = 0;
+  heartSpawnElapsed = 0;
+  MAX_HEART_COUNT = isMobile ? 15 : 35;
+  const initial = isMobile ? 8 : 18;
+  for(let i = 0; i < initial; i++){
+    spawnAmbientHeart(rand(-H * 0.5, H + 100));
+  }
+}
+/* ================= SPARKLES (CHẤM CHẤM SAU CHỮ) ================= */
+function spawnSparkle(x, y){
+  if(sparkles.length > 200) return;
+  sparkles.push({
+    x, y,
+    vx: rand(-25, 25),
+    vy: rand(15, 50),
+    life: rand(400, 900),
+    max: 900,
+    size: rand(1, 3),
+    alpha: rand(0.5, 1.0)
+  });
+}
+function initSparkles(){
+  sparkles = [];
+}
+/* ================= RESIZE ================= */
+function resize(){
+  const nw=innerWidth, nh=innerHeight;
+  isMobile=nw<700;
+  dpr=Math.min(devicePixelRatio||1, 1.5);
+  canvas.width=Math.floor(nw*dpr);
+  canvas.height=Math.floor(nh*dpr);
+  canvas.style.width=nw+"px";
+  canvas.style.height=nh+"px";
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  if(W&&H){
+    const sx=nw/W, sy=nh/H;
+    for(let i=0;i<stars.length;i++){stars[i].x*=sx;stars[i].y*=sy;}
+    for(let i=0;i<lanterns.length;i++){lanterns[i].x*=sx;lanterns[i].y*=sy;}
+  }
+  W=nw; H=nh;
+  buildGradients();
+  if(!stars.length) makeStars();
+  if(!lanterns.length) makeLanterns();
+  initTexts();
+  initAmbientHearts();
+  initSparkles();
+}
+let resizeRaf=0;
+window.addEventListener("resize",()=>{
+  if(resizeRaf) return;
+  resizeRaf=requestAnimationFrame(()=>{ resizeRaf=0; resize(); });
+},{passive:true});
+/* ================= VẼ ================= */
+function drawBackground(){
+  ctx.fillStyle=bgGrad;
+  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=glowGrad;
+  ctx.fillRect(0,0,W,H);
+}
+function drawStars(t){
+  ctx.fillStyle="#ffe9f3";
+  ctx.globalAlpha=.85;
+  ctx.beginPath();
+  for(let i=0;i<stars.length;i++){
+    const s=stars[i];
+    const p=project(s.x,s.y,s.z);
+    const tw=0.82+0.22*Math.sin(t*0.001*s.s+s.p);
+    const r=s.r*tw*p.s;
+    if(r<0.35) continue;
+    ctx.moveTo(p.x+r,p.y);
+    ctx.arc(p.x,p.y,r,0,TAU);
+  }
+  ctx.fill();
+  ctx.globalAlpha=1;
+}
+function drawLanterns(t,dt){
+  // Đã xóa phần vẽ đèn lồng để nền sạch đẹp như ban đầu
+  return;
+}
+function drawTexts(t, dt){
+  if(!textSprites.length || !lanes.length) return;
+  spawnElapsed += dt;
+  const interval = Math.max(160, 700 - spawnElapsed * 0.009);
+  spawnTimer += dt;
+  let guard = 20;
+  while(spawnTimer >= interval && texts.length < MAX_TEXT_COUNT && guard-- > 0){
+    spawnTimer -= interval;
+    spawnOneText();
+  }
+  let write = 0;
+  for(let i = 0; i < texts.length; i++){
+    const o = texts[i];
+    o.y += o.speed * dt * 0.001;
+    if(o.y <= H + 140) texts[write++] = o;
+  }
+  texts.length = write;
+  const fadeIn = 150;
+  const fadeOut = 220;
+  for(let i = 0; i < texts.length; i++){
+    const o = texts[i];
+    const spr = textSprites[o.idx];
+    if(!spr) continue;
+    let vis = 1;
+    if(o.y < fadeIn) vis = Math.max(0, o.y / fadeIn);
+    const distBottom = H - o.y;
+    if(distBottom < fadeOut) vis = Math.min(vis, Math.max(0, distBottom / fadeOut));
+    if(vis <= 0.02) continue;
+    const shimmer = 0.8 + 0.2 * (0.5 + 0.5 * Math.sin(t * 0.0014 + o.p));
+    const sway = Math.sin(t * 0.0003 + o.p * 1.7) * 0.8;
+    const w = spr.w * o.scale;
+    const h = spr.h * o.scale;
+    ctx.globalAlpha = o.alpha * vis * shimmer;
+    ctx.drawImage(spr.c, o.x - w * 0.5 + sway, o.y - h * 0.5, w, h);
+    
+    // Tạo sparkle bay theo sau chữ
+    if(Math.random() < 0.25) {
+      spawnSparkle(o.x + rand(-w*0.4, w*0.4), o.y + h*0.4);
+    }
+  }
+  ctx.globalAlpha = 1;
+}
+function drawHearts(t,dt){
+  if(!heartSprite||!hearts.length) return;
+  const k=dt*0.001;
+  let w=0;
+  for(let i=0;i<hearts.length;i++){
+    const h=hearts[i];
+    h.life-=dt;
+    if(h.life<=0) continue;
+    h.y-=h.speed*k;
+    h.x+=Math.sin(t*0.001+h.p)*h.drift*k*0.4;
+    const p=project(h.x,h.y,h.z);
+    const s=h.size*p.s*1.5;
+    ctx.save();
+    ctx.globalAlpha=Math.max(0,h.life/h.max);
+    ctx.translate(p.x,p.y);
+    if(h.rot) ctx.rotate(h.rot);
+    ctx.drawImage(heartSprite,-s*0.5,-s*0.5,s,s);
+    ctx.restore();
+    hearts[w++]=h;
+  }
+  hearts.length=w;
+  ctx.globalAlpha=1;
+}
+function drawAmbientHearts(t, dt){
+  if(!heartSprite) return;
+  heartSpawnElapsed += dt;
+  const interval = Math.max(200, 800 - heartSpawnElapsed * 0.01);
+  heartSpawnTimer += dt;
+  let guard = 10;
+  while(heartSpawnTimer >= interval && ambientHearts.length < MAX_HEART_COUNT && guard-- > 0){
+    heartSpawnTimer -= interval;
+    spawnAmbientHeart();
+  }
+
+  let write = 0;
+  for(let i = 0; i < ambientHearts.length; i++){
+    const h = ambientHearts[i];
+    h.y -= h.speed * dt * 0.001;
+    if(h.y > -100){
+      const p = project(h.x + Math.sin(t * 0.001 + h.p) * h.drift, h.y, 0.8);
+      const s = h.size * p.s;
+      ctx.save();
+      ctx.globalAlpha = h.alpha;
+      ctx.translate(p.x, p.y);
+      ctx.drawImage(heartSprite, -s * 0.5, -s * 0.5, s, s);
+      ctx.restore();
+      ambientHearts[write++] = h;
+    }
+  }
+  ambientHearts.length = write;
+  ctx.globalAlpha = 1;
+}
+function drawSparkles(t, dt){
+  if(!sparkles.length) return;
+  let write = 0;
+  for(let i = 0; i < sparkles.length; i++){
+    const s = sparkles[i];
+    s.life -= dt;
+    if(s.life > 0){
+      s.x += s.vx * dt * 0.001;
+      s.y += s.vy * dt * 0.001;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, s.life / s.max) * s.alpha;
+      ctx.fillStyle = "#ffe9f3";
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, TAU);
+      ctx.fill();
+      ctx.restore();
+      sparkles[write++] = s;
+    }
+  }
+  sparkles.length = write;
+  ctx.globalAlpha = 1;
+}
+/* ================= VÒNG LẶP ================= */
+function loop(t){
+  requestAnimationFrame(loop);
+  if(!prevRender) prevRender=t;
+  const elapsed=t-prevRender;
+  const minFrame=opened?33:15;
+  if(elapsed<minFrame) return;
+  const dt=Math.min(elapsed,48);
+  prevRender=t;
+  rotX = 0;
+  rotY = 0;
+  drawBackground();
+  drawStars(t);
+  // drawLanterns(t,dt); // Đã tắt tính năng vẽ đèn lồng bay
+  drawSparkles(t,dt);
+  drawTexts(t,dt);
+  drawHearts(t,dt);
+  drawAmbientHearts(t, dt);
+}
+/* ================= GIỮ BẤT KỲ ĐÂU ĐỂ MỞ THƯ ================= */
+const HOLD_MS = 1000;
+const HOLD_MOVE_TOL = 22;
+let holdPid = null;
+let holdStartX = 0, holdStartY = 0;
+function isExcludedTarget(el){
+  if(!el || !el.closest) return false;
+  return !!(el.closest("#globalMusicBtn") ||
+            el.closest(".letter-modal") ||
+            el.closest(".letter-card"));
+}
+function beginHold(e){
+  if(opened) return;
+  if(isExcludedTarget(e.target)) return;
+  if(e.button !== undefined && e.button !== 0 && e.pointerType === "mouse") return;
+  holdPid = e.pointerId;
+  holdStartX = e.clientX;
+  holdStartY = e.clientY;
+  hint.classList.add("hidden");
+  moon.classList.add("holding");
+  clearTimeout(holdTimer);
+  holdTimer = setTimeout(openLetter, HOLD_MS);
+}
+function moveHold(e){
+  if(holdPid === null || e.pointerId !== holdPid) return;
+  const dx = e.clientX - holdStartX;
+  const dy = e.clientY - holdStartY;
+  if(dx*dx + dy*dy > HOLD_MOVE_TOL * HOLD_MOVE_TOL) cancelHold();
+}
+function cancelHold(e){
+  if(e && holdPid !== null && e.pointerId !== holdPid) return;
+  if(opened){ holdPid = null; return; }
+  clearTimeout(holdTimer);
+  holdPid = null;
+  moon.classList.remove("holding");
+  hint.classList.remove("hidden");
+}
+window.addEventListener("pointerdown", beginHold, {passive:true});
+window.addEventListener("pointermove", moveHold, {passive:true});
+window.addEventListener("pointerup", cancelHold, {passive:true});
+window.addEventListener("pointercancel", cancelHold, {passive:true});
+moon.addEventListener("contextmenu", e=>e.preventDefault());
+moon.addEventListener("keydown", e=>{
+  if(e.key==="Enter" || e.key===" "){
+    e.preventDefault();
+    hint.classList.add("hidden");
+    moon.classList.add("holding");
+    clearTimeout(holdTimer);
+    holdTimer = setTimeout(openLetter, HOLD_MS);
+  }
+});
+moon.addEventListener("keyup", ()=>{ if(!opened){clearTimeout(holdTimer);moon.classList.remove("holding");hint.classList.remove("hidden");} });
+/* ================= THIỆP ================= */
+function openLetter(){
+  if(opened) return;
+  opened=true;
+  holdPid = null;
+  clearTimeout(holdTimer);
+  moon.classList.remove("holding");
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  typeLetter();
+}
+function typeLetter(){
+  clearTimeout(typingTimer);
+  textEl.textContent="";
+  let i=0;
+  const step=()=>{
+    textEl.textContent=CONFIG.letter.slice(0,i++);
+    if(letterBox) letterBox.scrollTop=letterBox.scrollHeight;
+    if(i<=CONFIG.letter.length) typingTimer=setTimeout(step,14);
+  };
+  step();
+}
+function closeLetter(){
+  opened=false;
+  clearTimeout(typingTimer);
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  prevRender=0;
+}
+closeBtn.onclick=closeLetter;
+backdrop.onclick=closeLetter;
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&opened) closeLetter(); });
+/* ================= TIM ================= */
+heartBtn.onclick=()=>{
+  const cx=W*0.5, cy=H*0.5;
+  const canvasHearts=isMobile?20:30;
+  for(let i=0;i<canvasHearts;i++){
+    const life=rand(1200,2400);
+    hearts.push({
+      x:cx+rand(-35,35), y:cy+rand(-30,30), z:rand(.1,1.5),
+      size:rand(8,20), speed:rand(25,90), drift:rand(-45,45),
+      p:rand(0,TAU), rot:rand(-.7,.7), life, max:life
+    });
+  }
+  const domHearts=isMobile?10:16;
+  const frag=document.createDocumentFragment();
+  const els=[];
+  for(let i=0;i<domHearts;i++){
+    const el=document.createElement("span");
+    el.className="heart-particle";
+    el.textContent=["♥","❤","♡","💗"][(Math.random()*4)|0];
+    el.style.left=(innerWidth/2+rand(-15,15))+"px";
+    el.style.top=(innerHeight/2+rand(-15,15))+"px";
+    el.style.fontSize=rand(15,31)+"px";
+    frag.appendChild(el);
+    els.push(el);
+  }
+  document.body.appendChild(frag);
+  els.forEach(el=>{
+    const dx=rand(-260,260), dy=rand(-280,180), dur=rand(1100,2100);
+    const a=el.animate([
+      {transform:"translate(0,0) scale(.5)",opacity:1},
+      {transform:`translate(${dx*.5}px,${dy*.45}px) scale(1.25)`,opacity:.9},
+      {transform:`translate(${dx}px,${dy}px) scale(.7)`,opacity:0}
+    ],{duration:dur,easing:"cubic-bezier(.2,.7,.3,1)"});
+    a.onfinish=()=>el.remove();
+  });
+};
+/* ================= START ================= */
+preload();
+resize();
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
